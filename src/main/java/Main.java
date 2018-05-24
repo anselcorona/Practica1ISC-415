@@ -1,4 +1,5 @@
 
+import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Attribute;
 import org.jsoup.nodes.Document;
@@ -19,6 +20,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String [] args){
         Document document;
+        Connection.Response c;
         String URL;
         Scanner scanner = new Scanner(System.in);
         System.out.println("******************Cliente HTTP******************");
@@ -30,6 +32,7 @@ public class Main {
                 URL = scanner.nextLine();
 
                 document = Jsoup.connect("http://"+URL).get();
+                c = Jsoup.connect("http://"+URL).execute();
             }catch (Exception ex){
                 System.out.println("No ha ingresado una URL correcta");
                 continue;
@@ -42,7 +45,7 @@ public class Main {
         System.out.println("********Estadísticas del documento********");
 
         //a) Indicar la cantidad de lineas del recurso retornado.
-        System.out.println("Cantidad de Líneas: " + document.html().split("\n").length);
+        System.out.println("Cantidad de Líneas: " + c.body().split("\n").length);
 
         //b) Indicar la cantidad de párrafos (p) que contiene el documento HTML.
         Elements elements = document.getElementsByTag("p");
@@ -50,7 +53,7 @@ public class Main {
 
         //c) Indicar la cantidad de imágenes (img) dentro de los párrafos que
         //contiene el archivo HTML.
-        System.out.println("Cantidad de fotos dentro de parrafos (etiquetas <img> dentro de etiquetas <p>): " + document.select("p img"));
+        System.out.println("Cantidad de fotos dentro de parrafos (etiquetas <img> dentro de etiquetas <p>): " + document.select("p img").size());
 
         //d)indicar la cantidad de formularios (form) que contiene el HTML por
         //categorizando por el método implementado POST o GET.
@@ -67,7 +70,7 @@ public class Main {
                 Post++;
             }
         }
-        System.out.println("De los cuales, " + Get + "son de tipo GET y, " + Post + "son de tipo POST.");
+        System.out.println("De los cuales, " + Get + " son de tipo GET y, " + Post + " son de tipo POST.");
 
 
 
