@@ -5,13 +5,8 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.nodes.FormElement;
 import org.jsoup.select.Elements;
-import org.w3c.dom.Attr;
 
-import javax.annotation.processing.SupportedSourceVersion;
-import javax.smartcardio.ATR;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -55,7 +50,6 @@ public class Main {
 
         //c) Indicar la cantidad de imágenes (img) dentro de los párrafos que
         //contiene el archivo HTML.
-        elements = document.getElementsByTag("img");
         System.out.println("Cantidad de fotos dentro de parrafos (etiquetas <img> dentro de etiquetas <p>): " + document.select("p img"));
 
         //d)indicar la cantidad de formularios (form) que contiene el HTML por
