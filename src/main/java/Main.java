@@ -9,6 +9,7 @@ import org.w3c.dom.Attr;
 
 import javax.annotation.processing.SupportedSourceVersion;
 import javax.smartcardio.ATR;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -102,8 +103,25 @@ public class Main {
         }
 
         System.out.println("************************************************");
+        int x = 1;
+        Document ResultingDoc;
         for(Element form : document.getElementsByTag("form").forms()){
             Elements PostForms = form.getElementsByAttributeValueContaining("method", "post");
+            for(Element formz : PostForms){
+                try{
+                    System.out.println("Formulario " + x + ":");
+                    String absURL = formz.absUrl("action");
+                    ResultingDoc = Jsoup.connect(absURL).data("asignatura", "practica1").header("matricula", "20140031").post();
+
+                    System.out.println("************************************************");
+                    System.out.println("Resultado");
+                    System.out.println(ResultingDoc.body().toString());
+                    System.out.println("************************************************");
+                } catch (IOException e){
+                    e.printStackTrace();
+                }
+            }
+            x++;
         }
 
 
